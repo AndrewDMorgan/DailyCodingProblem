@@ -25,20 +25,31 @@ def Serialize(node):
     maxDepth = max([key for key in values])
     
     # generating the pyrimid
-    layers = []
+    layers = ""
     numWide=1
     for depth in range(maxDepth+1):
-        row = []
+        row = ""
         for x in range(numWide):
             if x in values[depth]:
-                row.append(values[depth][x])
+                row += values[depth][x]
             else:
-                row.append(None)
-        print(row)
-        layers.append(row)
+                row += "None"
+            if x<numWide-1: row += ","
+        layers += row + "\n"
         numWide*=2
     
-    # each layer doubles in size
+    return layers
+
+def Deserialize(string):
+    # generating a dictionary
+    values = {}
+    
+    # the layers of the tree
+    layers = string.split("\n")[:-1]
+    for y, layer in enumerate(layers):
+        pass
 
 tree = Node("root", Node("left", Node("left.left")), Node("right"))
-print(Serialize(tree))
+serialized = Serialize(tree)
+print(serialized)
+print(Deserialize(serialized))
