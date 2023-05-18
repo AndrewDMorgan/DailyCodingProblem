@@ -1,0 +1,44 @@
+
+class Node:
+    def __init__(self, val, left=None, right=None):
+        self.val=val
+        self.left=left
+        self.right=right
+
+# generatates a dictionary of all the nodes
+def GetNodes(node, values={}, depth=0, x=0):
+    # adding a dictionary to the dictionary at the depth
+    if depth not in values:
+        values[depth]={}
+    # adding the value of the node
+    values[depth][x] = node.val
+    if node.left: GetNodes(node.left, values, depth+1, x)
+    if node.right: GetNodes(node.right, values, depth+1, x+1)
+    return values
+
+# serializes the bianry tree
+def Serialize(node):
+    # the values in a dictionary
+    values = GetNodes(node)
+    
+    # getting the max depth of the tree
+    maxDepth = max([key for key in values])
+    
+    # generating the pyrimid
+    layers = []
+    numWide=1
+    for depth in range(maxDepth+1):
+        row = []
+        for x in range(numWide):
+            if x in values[depth]:
+                row.append(values[depth][x])
+            else:
+                row.append(None)
+        print(row)
+        layers.append(row)
+        numWide*=2
+    
+    # each layer doubles in size
+
+tree = Node("root", Node("left", Node("left.left")), Node("right"))
+print(Serialize(tree))
