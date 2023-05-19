@@ -20,7 +20,7 @@ def lowestPositiveIntegerFast(numbers: list) -> int:
     maxVal = 0
     for value in range(1, len(numbers)):
         if values.get(value): return value
-        if value > maxVal: maxVal = value
+        if value > maxVal: maxVal = value  # using maxVal = max(maxVal, value) instead of whats here may be slightly faster (it would be the slightest optimization)
     
     # returning the next value int he sequence
     return maxVal + 1
