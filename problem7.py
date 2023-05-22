@@ -5,6 +5,7 @@ def numWaysToDecode(string: str) -> int:
     length = len(string)  # the length of the string
     if (length > 1 and int(string[0] + string[1]) <= 26):
         # returning the number of ways to decode it from this point
+        if string[1]=="0": return numWaysToDecode(string[2:])  # checking if it ends in a zero (zero can't be decoded)
         return numWaysToDecode(string[1:]) + numWaysToDecode(string[2:])
     # continuing to decode the string or returning 1 if at the end of the search
     return numWaysToDecode(string[1:]) if length > 1 else 1
@@ -15,4 +16,5 @@ print(numWaysToDecode('111'))   # should be 3
 print(numWaysToDecode('231532'))
 print(numWaysToDecode('3215231'))
 print(numWaysToDecode('3214'))
+print(numWaysToDecode('10'))
 
